@@ -31,7 +31,7 @@ Esta versão é implementada em linguagem C++, e permite múltiplos elementos co
 
 -> Para compilar o código:
       
-       g++ main.cpp -o program
+      g++ main.cpp AVLTree.cpp -o program
        
 -> Para executar o programa:
        
