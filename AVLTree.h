@@ -1,33 +1,38 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
+#include <vector>
+
+using namespace std;
+
 
 class AVLTree {
 public:
-    AVLTree();
-    ~AVLTree();
+    AVLTree(); // Construtor
+    ~AVLTree(); // Destrutor
     void insert(int value);
     void remove(int value);
-    void printInOrder();
     void printDiagram();
 
 private:
+    // definição da estrutura Node para os nós da árvore AVL
     struct Node {
         int value;
         int height;
         Node* left;
         Node* right;
+        // Construtor
         Node(int val) : value(val), height(0), left(nullptr), right(nullptr) {}
     };
 
     Node* root;
 
-    // métodos de rotação
+    // métodos de rotação para balanceamento da árvore
     Node* rotateLeft(Node* node);
     Node* rotateRight(Node* node);
     Node* rotateLeftRight(Node* node);
     Node* rotateRightLeft(Node* node);
 
-    // outros métodos auxiliares
+    // outros métodos auxiliares para manipulação da árvore AVL
     Node* insertNode(Node* node, int value);
     Node* removeNode(Node* node, int value);
     Node* findMinNode(Node* node);
@@ -35,9 +40,7 @@ private:
     int getHeight(Node* node);
     int getBalanceFactor(Node* node);
     void updateHeight(Node* node);
-    void printInOrder(Node* node);
-    //void print(Node* node, int value);
-    void printDiagram(Node* node, int level, std::vector<bool>& lastChildren);
+    void printDiagram(Node* node, int level, bool last);
 };
 
 #endif

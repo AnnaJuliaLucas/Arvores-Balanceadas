@@ -1,5 +1,6 @@
 #include "AVLTree.h"
 #include <iostream>
+using namespace std;
 
 int main() {
     AVLTree tree;
@@ -14,13 +15,10 @@ int main() {
     tree.insert(70);
     tree.insert(80);
 
-    // impressões an árvore em ordem
-    std::cout << "Árvore AVL em ordem: ";
-    tree.printInOrder();
-    std::cout << std::endl;
-
+    // impressão 
     std::cout << "Diagrama da árvore AVL: " << std::endl << std::endl;
     tree.printDiagram();
+    std::cout << std::endl;
 
 
     // remove alguns valores da árvore
@@ -28,13 +26,10 @@ int main() {
     tree.remove(30);
     tree.remove(70);
 
-    // imprime a árvore em ordem novamente
-    std::cout << "Árvore AVL em ordem após remoção de valores: ";
-    tree.printInOrder();
-    std::cout << std::endl;
-
-    std::cout << "Diagrama da árvore AVL tree após a remoção de valores: " << std::endl;
+    // imprime o diagrama da árvore AVL após a remoção de valores
+    std::cout << "Diagrama da árvore AVL  após a remoção de valores: " << std::endl << std::endl;
     tree.printDiagram();
+ 
 
     return 0;
 };

@@ -2,12 +2,13 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 AVLTree::AVLTree() {
-    root = nullptr;
+    root = nullptr; 
 }
 
-AVLTree::~AVLTree() {
-    
+AVLTree::~AVLTree() {   
 }
 
 void AVLTree::insert(int value) {
@@ -18,16 +19,12 @@ void AVLTree::remove(int value) {
     root = removeNode(root, value);
 }
 
-void AVLTree::printInOrder() {
-    printInOrder(root);
-}
-
 AVLTree::Node* AVLTree::rotateLeft(Node* node) {
-    Node* newRoot = node->right;
-    node->right = newRoot->left;
-    newRoot->left = node;
-    updateHeight(node);
-    updateHeight(newRoot);
+    Node* newRoot = node->right; 
+    node->right = newRoot->left; 
+    newRoot->left = node; 
+    updateHeight(node); 
+    updateHeight(newRoot); 
     return newRoot;
 }
 
@@ -40,18 +37,21 @@ AVLTree::Node* AVLTree::rotateRight(Node* node) {
     return newRoot;
 }
 
+
 AVLTree::Node* AVLTree::rotateLeftRight(Node* node) {
     node->left = rotateLeft(node->left);
     return rotateRight(node);
 }
+
 
 AVLTree::Node* AVLTree::rotateRightLeft(Node* node) {
     node->right = rotateRight(node->right);
     return rotateLeft(node);
 }
 
+
 AVLTree::Node* AVLTree::insertNode(Node* node, int value) {
-         if (node == nullptr) {
+        if (node == nullptr) {
         node = new Node(value);
         node->value = value;
         node->left = nullptr;
@@ -84,6 +84,7 @@ AVLTree::Node* AVLTree::insertNode(Node* node, int value) {
     updateHeight(node);
     return node;
 }
+
 
 AVLTree::Node* AVLTree::removeNode(Node* node, int value) {
     if (node == nullptr) {
@@ -168,39 +169,30 @@ void AVLTree::updateHeight(Node* node) {
     node->height = 1 + std::max(getHeight(node->left), getHeight(node->right));
 }
 
-void AVLTree::printInOrder(Node* node) {
-    if (node == nullptr) {
-        return;
-    }
-    printInOrder(node->left);
-    std::cout << node->value << " ";
-    printInOrder(node->right);
-}
-
 void AVLTree::printDiagram() {
     if (root == nullptr) {
         std::cout << "Empty tree\n";
         return;
     }
-    std::vector<bool> lastChildren;
-    printDiagram(root, 0, lastChildren);
+    printDiagram(root, 0, true);
 }
 
-void AVLTree::printDiagram(Node* node, int level, std::vector<bool>& lastChildren) {
+void AVLTree::printDiagram(Node* node, int level, bool last) {
     if (node == nullptr) {
         return;
     }
-    lastChildren.push_back(false);
-    printDiagram(node->right, level + 1, lastChildren);
+    printDiagram(node->right, level + 1, false);
     for (int i = 0; i < level; i++) {
         if (i == level - 1) {
-            std::cout << (lastChildren[i] ? "└───" : "├───");
+            if (last) {
+                std::cout << "└── ";
+            } else {
+                std::cout << "├── ";
+            }
         } else {
-            std::cout << (lastChildren[i] ? "    " : "│   ");
+            std::cout << "    ";
         }
     }
     std::cout << node->value << std::endl;
-    lastChildren[level] = (node->right == nullptr);
-    printDiagram(node->left, level + 1, lastChildren);
-    lastChildren.pop_back();
+    printDiagram(node->left, level + 1, node->right == nullptr);
 }
